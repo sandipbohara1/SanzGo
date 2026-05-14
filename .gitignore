@@ -1,0 +1,16 @@
+# Virtual environment - never push this
+.venv/
+
+# Secrets - never push this
+.env
+
+# Python junk files
+__pycache__/
+*.pyc
+*.pyo
+
+# VS Code settings
+.vscode/
+
+# Docker
+*.log
