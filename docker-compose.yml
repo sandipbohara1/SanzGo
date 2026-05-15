@@ -1,0 +1,41 @@
+# Docker Compose file for SanzGo local development environment
+# Starts PostgreSQL with PostGIS extension enabled
+# Run with: docker-compose up -d
+# Stop with: docker-compose down
+
+version: '3.8'
+
+services:
+  db:
+
+    # Official PostGIS image — PostgreSQL 16 with PostGIS 3.4 pre-installed
+    image: postgis/postgis:16-3.4
+
+    # Name the container so we can reference it easily in terminal
+    container_name: sanzgo_db
+
+    # These become environment variables inside the container
+    # PostgreSQL reads these on first startup to create the database and user
+
+    environment:
+      POSTGRES_DB: sanzgo           # Database name
+      POSTGRES_USER: sanzgo_user    # Database username
+      POSTGRES_PASSWORD: sanzgo_pass # Database password
+      
+
+    # Map port 5432 inside the container to port 5432 on machine
+    # Format is host:container
+    # This lets DBeaver and our Python app connect to localhost:5432
+    ports:
+      - "5433:5432"
+
+    # Mount a named volume so database data survives container restarts
+    # Left side — named volume managed by Docker
+    # Right side — where PostgreSQL stores data inside the container
+    volumes:
+      - sanzgo_data:/var/lib/postgresql/data
+
+# Declare named volumes at the top level
+# Docker creates and manages these on your machine
+volumes:
+  sanzgo_data: # Persists all PostgreSQL data between container restarts
