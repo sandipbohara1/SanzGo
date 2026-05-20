@@ -3,8 +3,6 @@
 # Run with: docker-compose up -d
 # Stop with: docker-compose down
 
-version: '3.8'
-
 services:
   db:
 
