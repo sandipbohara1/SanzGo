@@ -7,7 +7,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel          # validates incoming JSON data
 from typing import Optional             # allows nullable fields
 from app import db                      # database connection pool
-
+from app.routers.alerts import check_and_create_alerts
 
 # Create the router — main.py will mount this
 router = APIRouter(
@@ -78,6 +78,9 @@ async def add_sensor_reading(reading: SensorReading):
             "UPDATE devices SET last_ping = NOW() WHERE id = $1",
             device["id"]
         )
+
+        # Check reading against health thresholds and create alerts if needed
+        await check_and_create_alerts(conn, device["id"], device["user_id"], reading.dict())
 
         return {
             "status": "ok",
