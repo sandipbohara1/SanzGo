@@ -58,3 +58,13 @@ JWT_EXPIRY_HOURS = int(JWT_EXPIRY_HOURS)          # convert from string to integ
 APP_ENV = os.getenv("APP_ENV")  # current environment — 'development' or 'production'
 if not APP_ENV:
     raise ValueError("APP_ENV is missing from .env")
+
+
+# --- Google OAuth ---
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+if not GOOGLE_CLIENT_ID:
+    raise ValueError("GOOGLE_CLIENT_ID is missing from .env")
+
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
+if not GOOGLE_CLIENT_SECRET:
+    raise ValueError("GOOGLE_CLIENT_SECRET is missing from .env")

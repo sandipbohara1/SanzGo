@@ -14,3 +14,15 @@ __pycache__/
 
 # Docker
 *.log
+
+# pytest cache
+.pytest_cache/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# OS files
+.DS_Store
+Thumbs.db

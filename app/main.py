@@ -7,7 +7,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app import db
 from app.routers import sensor
-
+from app.routers import auth
+from app.middleware import jwt_middleware
+from starlette.middleware.base import BaseHTTPMiddleware
+from app.routers import devices
 
 # Create the FastAPI app instance
 app = FastAPI(
@@ -25,6 +28,7 @@ app.add_middleware(
     allow_headers=["*"],    # allow all headers
 )
 
+app.add_middleware(BaseHTTPMiddleware, dispatch=jwt_middleware)
 
 @app.on_event("startup")
 async def startup():
@@ -42,6 +46,9 @@ async def shutdown():
 # Mount routers — each router handles a group of related endpoints
 app.include_router(sensor.router)           # /sensor/add, /sensor/latest/{device_id}
 
+app.include_router(auth.router)             # 
+
+app.include_router(devices.router)     # /devices/pair, /devices/mine
 
 @app.get("/health")
 async def health():
