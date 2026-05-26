@@ -6,6 +6,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app import db
+from app.routers import sensor
+
 
 # Create the FastAPI app instance
 app = FastAPI(
@@ -36,6 +38,9 @@ async def shutdown():
     # Runs once when the server shuts down
     # Cleanly closes all database connections
     await db.disconnect()
+
+# Mount routers — each router handles a group of related endpoints
+app.include_router(sensor.router)           # /sensor/add, /sensor/latest/{device_id}
 
 
 @app.get("/health")
