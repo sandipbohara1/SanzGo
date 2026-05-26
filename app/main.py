@@ -12,6 +12,7 @@ from app.middleware import jwt_middleware
 from starlette.middleware.base import BaseHTTPMiddleware
 from app.routers import devices
 from app.routers import alerts
+from app.routers import wellness
 
 
 # Create the FastAPI app instance
@@ -53,6 +54,8 @@ app.include_router(auth.router)             #
 app.include_router(devices.router)     # /devices/pair, /devices/mine
 
 app.include_router(alerts.router)      # /alerts/current, /alerts/history
+
+app.include_router(wellness.router)    # /wellness/summary/today
 
 @app.get("/health")
 async def health():
