@@ -27,7 +27,6 @@ class OAuthRequest(BaseModel):
     id_token: str       # the token Google gave to the MAUI app
 
 
-
 # --- Helper functions ---
 
 async def verify_google_token(id_token: str) -> dict:
@@ -51,6 +50,7 @@ async def verify_google_token(id_token: str) -> dict:
 
     return data
 
+
 def create_sanzgo_jwt(user_id: int, email: str) -> str:
     # Creates a SanzGo JWT token for the authenticated user
     # The token expires after JWT_EXPIRY_HOURS hours
@@ -72,6 +72,7 @@ def create_sanzgo_jwt(user_id: int, email: str) -> str:
 async def oauth_login(request: OAuthRequest):
     # Verifies a Google id_token and returns a SanzGo JWT
     # Creates a new user account if this is their first login
+    # Returns needs_color_selection: true if user has not picked a zone colour yet
 
     # Step 1 — verify the token with Google
     google_data = await verify_google_token(request.id_token)
@@ -115,9 +116,10 @@ async def oauth_login(request: OAuthRequest):
                 user_id = existing_user["id"]
             else:
                 # Create a brand new user
+                # zone_color is null until user selects it on the colour picker screen
                 user = await conn.fetchrow("""
-                    INSERT INTO users (display_name, email)
-                    VALUES ($1, $2)
+                    INSERT INTO users (display_name, email, zone_color)
+                    VALUES ($1, $2, NULL)
                     RETURNING id
                 """, name, email)
                 user_id = user["id"]
@@ -128,6 +130,14 @@ async def oauth_login(request: OAuthRequest):
                 VALUES ($1, 'google', $2)
             """, user_id, provider_sub)
 
+        # Check if user still needs to select their zone colour
+        user_data = await conn.fetchrow(
+            "SELECT zone_color FROM users WHERE id = $1", user_id
+        )
+
+    # Flag tells the MAUI app to show the colour picker screen
+    needs_color_selection = user_data["zone_color"] is None
+
     # Step 3 — issue a SanzGo JWT
     token = create_sanzgo_jwt(user_id, email)
 
@@ -137,5 +147,6 @@ async def oauth_login(request: OAuthRequest):
         "token_type": "bearer",
         "user_id": user_id,
         "email": email,
-        "display_name": name
+        "display_name": name,
+        "needs_color_selection": needs_color_selection  # app shows colour picker if true
     }
