@@ -14,6 +14,7 @@ from app.routers import devices
 from app.routers import alerts
 from app.routers import wellness
 from app.routers import profile
+from app.routers import territory
 
 
 # Create the FastAPI app instance
@@ -59,6 +60,8 @@ app.include_router(alerts.router)      # /alerts/current, /alerts/history
 app.include_router(wellness.router)    # /wellness/summary/today
 
 app.include_router(profile.router)     # /profile/setup, /profile/me, /profile/update
+
+app.include_router(territory.router)   # /territory/run/upload, /territory/tiles, /territory/leaderboard
 
 
 @app.get("/health")
