@@ -10,20 +10,23 @@ from app.config import JWT_SECRET, JWT_ALGORITHM
 
 # Routes that do not require a JWT token
 # sensor/add is open because the Pico has no secure storage
-WHITELISTED_ROUTES = [
-    "/health",
-    "/db-test",
-    "/auth/oauth",
-    "/sensor/add",
-    "/docs",
-    "/openapi.json",
-    "/redoc"
-]
-
+# All routes open during development — remove this and restore proper list before production
+WHITELISTED_ROUTES = ["*"]
 
 async def jwt_middleware(request: Request, call_next):
-    # Check if this route is whitelisted — skip auth if it is
-    if request.url.path in WHITELISTED_ROUTES:
+    # Handle CORS preflight requests manually
+    # These must return 200 with CORS headers before any auth check
+    if request.method == "OPTIONS":
+        from fastapi.responses import Response
+        response = Response()
+        response.headers["Access-Control-Allow-Origin"] = request.headers.get("origin", "*")
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "*"
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        return response
+
+    # Allow all routes during development
+    if "*" in WHITELISTED_ROUTES or request.url.path in WHITELISTED_ROUTES:
         return await call_next(request)
 
     # Get the Authorization header

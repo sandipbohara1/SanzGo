@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>SanzGo — Login</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/login.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+  <div class="app-shell">
+    <div class="login-screen">
+
+      <div class="login-logo"><img src="../assets/logo.jpg" alt=""></div>
+      <h1 class="app-name">SanzGo</h1>
+      <p class="tagline">Run. Claim. Conquer.</p>
+
+      <div style="height:32px"></div>
+
+      <!-- Google renders its own sign-in button inside this div -->
+      <div id="googleSignInButton"></div>
+
+      <div id="loadingMsg" class="muted" style="display:none; margin-top:16px;">Signing in...</div>
+      <div id="errorMsg" class="error-text" style="display:none;"></div>
+
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/login.js"></script>
+
+</body>
+</html>

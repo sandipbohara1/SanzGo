@@ -1,0 +1,87 @@
+/*
+  territory.css
+  Page-specific styles for territory.html only.
+*/
+
+.map-screen {
+  position: relative;
+  flex: 1;
+  background: var(--map-bg);
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+}
+
+.run-controls {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.run-button-wrap {
+  background: var(--map-nav);
+  border-radius: 30px;
+  padding: 4px;
+}
+
+.run-button-wrap .btn {
+  width: 160px;
+}
+
+/* Leaderboard panel pinned to the bottom of the map */
+.leaderboard-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(22, 27, 34, 0.95);
+  padding: 10px 16px 80px; /* extra bottom padding clears the tab bar */
+  z-index: 5;
+}
+
+.leaderboard-title {
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.leaderboard-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.leaderboard-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.leaderboard-name {
+  font-size: 12px;
+  color: rgba(255,255,255,0.9);
+  flex: 1;
+}
+
+.leaderboard-count {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+}

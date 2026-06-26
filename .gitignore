@@ -26,3 +26,9 @@ build/
 # OS files
 .DS_Store
 Thumbs.db
+
+# MAUI / .NET build files
+mobile/SanzGo/bin/
+mobile/SanzGo/obj/
+mobile/SanzGo/.vs/
+*.user

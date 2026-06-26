@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>SanzGo — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+  <div class="app-shell">
+    <div class="app-content">
+
+      <!-- Greeting -->
+      <div class="greeting">
+        <div id="greetingName" class="greeting-name">Happy Birthday, Amora</div>
+        <div id="greetingCity" class="muted">Edmonton</div>
+      </div>
+
+      <!-- Pico connection pill -->
+      <div class="pill" style="margin-bottom:16px;">
+        <span class="dot" id="connectionDot"></span>
+        <span id="connectionLabel">Checking...</span>
+      </div>
+
+      <!-- 2x2 Metric grid -->
+      <div class="metric-grid" style="margin-bottom:16px;">
+
+        <div class="card">
+          <div class="muted" style="font-size:13px;">Heart Rate</div>
+          <div class="metric-value" style="color:var(--alert-red);" id="heartRate">--</div>
+          <div class="muted" style="font-size:11px;">bpm</div>
+        </div>
+
+        <div class="card">
+          <div class="muted" style="font-size:13px;">SpO2</div>
+          <div class="metric-value" style="color:var(--ocean-blue);" id="spo2">--</div>
+          <div class="muted" style="font-size:11px;">%</div>
+        </div>
+
+        <div class="card">
+          <div class="muted" style="font-size:13px;">Temperature</div>
+          <div class="metric-value" style="color:var(--amber);" id="temperature">--</div>
+          <div class="muted" style="font-size:11px;">°C</div>
+        </div>
+
+        <div class="card">
+          <div class="muted" style="font-size:13px;">AQI</div>
+          <div class="metric-value" style="color:var(--teal);" id="aqi">--</div>
+          <div class="muted" style="font-size:11px;">index</div>
+        </div>
+
+      </div>
+
+      <!-- Secondary metrics row -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="secondary-metrics">
+          <div class="secondary-metric">
+            <div class="muted" style="font-size:11px;">Humidity</div>
+            <div style="font-size:16px;font-weight:700;" id="humidity">--</div>
+            <div class="muted" style="font-size:10px;">%</div>
+          </div>
+          <div class="secondary-metric">
+            <div class="muted" style="font-size:11px;">eCO2</div>
+            <div style="font-size:16px;font-weight:700;" id="eco2">--</div>
+            <div class="muted" style="font-size:10px;">ppm</div>
+          </div>
+          <div class="secondary-metric">
+            <div class="muted" style="font-size:11px;">TVOC</div>
+            <div style="font-size:16px;font-weight:700;" id="tvoc">--</div>
+            <div class="muted" style="font-size:10px;">ppb</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Last updated -->
+      <div class="muted" id="lastUpdated" style="text-align:center;font-size:12px;">
+        Last updated: --
+      </div>
+
+    </div>
+
+    <!-- Bottom tab bar -->
+    <nav class="tab-bar">
+      <a href="index.html" class="tab-item active">
+        <span class="tab-icon">🏠</span>
+        <span>Home</span>
+      </a>
+      <a href="alerts.html" class="tab-item">
+        <span class="tab-icon">🔔</span>
+        <span>Alerts</span>
+      </a>
+      <a href="territory.html" class="tab-item">
+        <span class="tab-icon">🗺️</span>
+        <span>Territory</span>
+      </a>
+      <a href="wellness.html" class="tab-item">
+        <span class="tab-icon">💚</span>
+        <span>Wellness</span>
+      </a>
+      <a href="profile.html" class="tab-item">
+        <span class="tab-icon">👤</span>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+
+</body>
+</html>

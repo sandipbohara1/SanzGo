@@ -152,7 +152,9 @@ async def get_current_alerts(device_id: int, request: Request):
     # Returns all active unresolved alerts for a device
     # These are the alerts shown on the Alerts screen in the app
 
-    user_id = request.state.user_id
+    # Dev mode — user_id from JWT disabled, using hardcoded value
+    # Restore to request.state.user_id when auth is re-enabled
+    user_id = getattr(request.state, "user_id", 2)
 
     async with await db.get_connection() as conn:
 
@@ -177,7 +179,9 @@ async def get_alert_history(device_id: int, request: Request):
     # Returns the full alert history for a device
     # Includes both resolved and unresolved alerts
 
-    user_id = request.state.user_id
+    # Dev mode — user_id from JWT disabled, using hardcoded value
+    # Restore to request.state.user_id when auth is re-enabled
+    user_id = getattr(request.state, "user_id", 2)
 
     async with await db.get_connection() as conn:
 

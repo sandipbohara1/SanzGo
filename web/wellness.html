@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>SanzGo — Wellness</title>
+  <link rel="stylesheet" href="css/sg-design.css">
+  <link rel="stylesheet" href="css/wellness.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+  <div class="wellness-shell">
+
+    <!-- Live Now -->
+    <div class="sgCard" style="margin-bottom:14px;">
+      <div class="sgCardHead">
+        <div>
+          <div class="sgTitle">Live Now</div>
+          <div class="sgHint" id="liveUpdated">Updating every 5s...</div>
+        </div>
+        <span class="sgPill ok" id="livePill">● Live</span>
+      </div>
+      <div class="live-grid">
+        <div class="live-metric">
+          <div class="sgLabel">Heart Rate</div>
+          <div class="sgValueSmall" style="color:#ef4444;" id="liveHr">--</div>
+          <div class="sgLabel">bpm</div>
+        </div>
+        <div class="live-metric">
+          <div class="sgLabel">SpO2</div>
+          <div class="sgValueSmall" style="color:#38bdf8;" id="liveSpo2">--</div>
+          <div class="sgLabel">%</div>
+        </div>
+        <div class="live-metric">
+          <div class="sgLabel">Temp</div>
+          <div class="sgValueSmall" style="color:#f59e0b;" id="liveTemp">--</div>
+          <div class="sgLabel">°C</div>
+        </div>
+        <div class="live-metric">
+          <div class="sgLabel">AQI</div>
+          <div class="sgValueSmall" style="color:#22c55e;" id="liveAqi">--</div>
+          <div class="sgLabel">idx</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's Summary -->
+    <div class="sgCard" style="margin-bottom:14px;">
+      <div class="sgCardHead">
+        <div>
+          <div class="sgTitle">Today's Summary</div>
+          <div class="sgHint" id="readingsCount">Loading...</div>
+        </div>
+      </div>
+      <div class="summary-grid">
+        <div class="summary-metric">
+          <div class="sgLabel">Avg Heart Rate</div>
+          <div class="sgValueSmall" style="color:#ef4444;" id="avgHr">--</div>
+          <div class="sgLabel">bpm</div>
+        </div>
+        <div class="summary-metric">
+          <div class="sgLabel">Avg SpO2</div>
+          <div class="sgValueSmall" style="color:#38bdf8;" id="avgSpo2">--</div>
+          <div class="sgLabel">%</div>
+        </div>
+        <div class="summary-metric">
+          <div class="sgLabel">Avg Temp</div>
+          <div class="sgValueSmall" style="color:#f59e0b;" id="avgTemp">--</div>
+          <div class="sgLabel">°C</div>
+        </div>
+        <div class="summary-metric">
+          <div class="sgLabel">Avg AQI</div>
+          <div class="sgValueSmall" style="color:#22c55e;" id="avgAqi">--</div>
+          <div class="sgLabel">idx</div>
+        </div>
+        <div class="summary-metric">
+          <div class="sgLabel">Avg Humidity</div>
+          <div class="sgValueSmall" id="avgHumidity">--</div>
+          <div class="sgLabel">%</div>
+        </div>
+        <div class="summary-metric">
+          <div class="sgLabel">Avg eCO2</div>
+          <div class="sgValueSmall" id="avgEco2">--</div>
+          <div class="sgLabel">ppm</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Water Tracker -->
+    <div class="sgCard" style="margin-bottom:14px;">
+      <div class="sgCardHead">
+        <div>
+          <div class="sgTitle">💧 Water Intake</div>
+          <div class="sgHint" id="waterCount">0 of 8 glasses today</div>
+        </div>
+        <span class="sgPill neutral" id="waterPill">0 / 8</span>
+      </div>
+      <div class="water-goal-bar">
+        <div class="water-goal-fill" id="waterBar" style="width:0%"></div>
+      </div>
+      <div class="glass-grid" id="glassGrid"></div>
+      <div style="display:flex;gap:10px;margin-top:12px;">
+        <button class="btn" style="flex:1;" onclick="logGlass()">+ Log a Glass</button>
+        <button class="btn btn--ghost" style="flex:1;" onclick="resetWater()">Reset</button>
+      </div>
+      <div style="margin-top:14px;border-top:1px solid rgba(15,23,42,.08);padding-top:12px;">
+        <div class="sgTitle" style="font-size:14px;">⏰ Hourly Reminder</div>
+        <div class="reminder-status" id="reminderStatus">Reminders off</div>
+        <div style="display:flex;gap:10px;margin-top:8px;">
+          <button class="btn" style="flex:1;" onclick="startReminder()">Enable</button>
+          <button class="btn btn--ghost" style="flex:1;" onclick="stopReminder()">Disable</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lower Abdominal Discomfort -->
+    <div class="card" id="sec-abdomen">
+      <div class="card__head">
+        <div>
+          <h2>Lower Abdominal Discomfort</h2>
+          <p class="muted">Supportive steps you can try at home.</p>
+        </div>
+        <button class="btn btn--ghost" onclick="toggleSection('acc-abdomen')">Expand/Collapse</button>
+      </div>
+      <div class="accordion" id="acc-abdomen">
+        <details open>
+          <summary>Apply heat</summary>
+          <p>Use a warm compress or heating pad to help relax muscles and reduce cramping.</p>
+        </details>
+        <details>
+          <summary>Hydrate well</summary>
+          <p>Drink water regularly to support digestion and reduce constipation.</p>
+        </details>
+        <details>
+          <summary>Peppermint <span class="badge">Video</span></summary>
+          <p>Peppermint tea may calm digestion and reduce gas and bloating.</p>
+          <p class="links">
+            <a class="link" href="https://youtu.be/ToHXyUfr1vM" target="_blank" rel="noopener">▶ Watch: Peppermint for digestion</a>
+          </p>
+        </details>
+        <details>
+          <summary>BRAT diet (short-term) <span class="badge">Video</span></summary>
+          <p>Bananas, rice, applesauce, and toast can be easier to tolerate when your stomach is upset.</p>
+          <p class="links">
+            <a class="link" href="https://youtu.be/E5nmXuq-2-I" target="_blank" rel="noopener">▶ Watch: Relieve Stomach Ache Exercises</a>
+          </p>
+        </details>
+        <details>
+          <summary>Avoid triggers</summary>
+          <p>Limit spicy, oily, or acidic foods if they worsen symptoms.</p>
+        </details>
+        <details>
+          <summary>Gentle movement <span class="badge">Video</span></summary>
+          <p>Light walking or gentle stretching may help digestion and reduce bloating.</p>
+          <p class="links">
+            <a class="link" href="https://youtu.be/Hp-bXOTuQck" target="_blank" rel="noopener">▶ Watch: Exercises for IBS &amp; Bloating</a>
+          </p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Nausea -->
+    <div class="card" id="sec-nausea">
+      <div class="card__head">
+        <div>
+          <h2>Nausea</h2>
+          <p class="muted">Gentle options that are often tolerated.</p>
+        </div>
+        <button class="btn btn--ghost" onclick="toggleSection('acc-nausea')">Expand/Collapse</button>
+      </div>
+      <div class="accordion" id="acc-nausea">
+        <details open>
+          <summary>Peppermint <span class="badge">Video</span></summary>
+          <p>Peppermint tea or peppermint aroma can help relax the stomach.</p>
+          <p class="links">
+            <a class="link" href="https://youtu.be/ToHXyUfr1vM" target="_blank" rel="noopener">▶ Watch: Peppermint</a>
+          </p>
+        </details>
+        <details>
+          <summary>Small sips</summary>
+          <p>Try frequent small sips of water or clear fluids instead of large drinks.</p>
+        </details>
+        <details>
+          <summary>Acupressure (P6 point) <span class="badge">Video</span></summary>
+          <p>Pressure at the inner wrist (P6 / Nei Guan) may reduce nausea for some people.</p>
+          <p class="links">
+            <a class="link" href="https://youtu.be/8dhvkGGTnHU" target="_blank" rel="noopener">▶ Watch: Acupressure for Nausea</a>
+          </p>
+        </details>
+        <details>
+          <summary>Ginger <span class="badge">Video</span></summary>
+          <p>Ginger tea or ginger chews are commonly used for nausea relief.</p>
+          <p class="links">
+            <a class="link" href="https://youtu.be/C2YPXGQFLJw" target="_blank" rel="noopener">▶ Watch: Stomach Bloating Pressure Points</a>
+          </p>
+        </details>
+        <details>
+          <summary>Fresh air + rest</summary>
+          <p>Cool air and rest can help reduce nausea sensations.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Stomach Ulcer Support -->
+    <div class="card" id="sec-ulcer">
+      <div class="card__head">
+        <div>
+          <h2>Stomach Ulcer Support</h2>
+          <p class="muted">Soothing habits and foods that may help symptoms.</p>
+        </div>
+        <button class="btn btn--ghost" onclick="toggleSection('acc-ulcer')">Expand/Collapse</button>
+      </div>
+      <div class="accordion" id="acc-ulcer">
+        <details open>
+          <summary>Cabbage juice <span class="badge">Video</span></summary>
+          <p>Often mentioned as supportive for the stomach lining and general gut comfort.</p>
+          <p class="links">
+            <a class="link" href="https://youtu.be/fPz5Gw4fpxQ" target="_blank" rel="noopener">▶ Watch: Stomach Ulcer Diet Menu</a>
+          </p>
+        </details>
+        <details>
+          <summary>Honey</summary>
+          <p>Some people use honey for soothing effects as part of a gentle routine.</p>
+        </details>
+        <details>
+          <summary>Probiotics <span class="badge">Video</span></summary>
+          <p>Foods like yogurt or kefir may support gut bacteria balance.</p>
+          <p class="links">
+            <a class="link" href="https://youtu.be/XY_3KmWTlqU" target="_blank" rel="noopener">▶ Watch: Yoga for Gastric Ulcer</a>
+          </p>
+        </details>
+        <details>
+          <summary>Aloe vera (moderation) <span class="badge">Video</span></summary>
+          <p>Aloe vera is sometimes used for soothing, but moderation matters.</p>
+          <p class="links">
+            <a class="link" href="https://youtu.be/RVi4Zedl7nM" target="_blank" rel="noopener">▶ Watch: Ulcer Diet Guide</a>
+          </p>
+        </details>
+        <details>
+          <summary>Turmeric</summary>
+          <p>Curcumin is associated with anti-inflammatory properties. Add to warm drinks or meals if tolerated.</p>
+        </details>
+      </div>
+      <div class="note">
+        <strong>Important:</strong> Get medical help for black/tarry stools, vomiting blood, unexplained weight loss, or severe/persistent pain.
+      </div>
+    </div>
+
+    <!-- Back Pain Relief Videos -->
+    <div class="card" id="sec-back">
+      <div class="card__head">
+        <div>
+          <h2>Back Pain Relief Videos</h2>
+          <p class="muted">Search or filter to match your symptoms.</p>
+        </div>
+        <div class="pill">YouTube</div>
+      </div>
+      <div class="controls">
+        <input id="backSearch" class="input" type="search" placeholder="Search (e.g. sciatica, core, stretch)..." oninput="applyBackFilters()">
+        <select id="backTag" class="input input--select" onchange="applyBackFilters()">
+          <option value="all">All</option>
+          <option value="stretches">Stretches</option>
+          <option value="core">Core / Stability</option>
+          <option value="sciatica">Sciatica</option>
+          <option value="tips">Self-care tips</option>
+        </select>
+      </div>
+      <div id="backVideoGrid" class="grid"></div>
+      <p class="muted fineprint">
+        If pain shoots down the leg, or you notice numbness/tingling or weakness, pause and consult a clinician/physio.
+      </p>
+    </div>
+
+    <!-- Safety disclaimer -->
+    <div class="note" style="margin-bottom:20px;">
+      ⚠️ These tips are for general wellness only. Always consult a healthcare professional for medical advice or persistent symptoms.
+    </div>
+
+  </div>
+
+  <!-- Bottom tab bar -->
+  <nav class="tab-bar">
+    <a href="index.html" class="tab-item"><span class="tab-icon">🏠</span><span>Home</span></a>
+    <a href="alerts.html" class="tab-item"><span class="tab-icon">🔔</span><span>Alerts</span></a>
+    <a href="territory.html" class="tab-item"><span class="tab-icon">🗺️</span><span>Territory</span></a>
+    <a href="wellness.html" class="tab-item active"><span class="tab-icon">💚</span><span>Wellness</span></a>
+    <a href="profile.html" class="tab-item"><span class="tab-icon">👤</span><span>Profile</span></a>
+  </nav>
+
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/wellness.js"></script>
+
+</body>
+</html>

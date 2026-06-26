@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>SanzGo — Alerts</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/alerts.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+  <div class="app-shell">
+    <div class="app-content">
+
+      <h2 class="page-title">Active Alerts</h2>
+      <div id="currentAlerts">
+        <div class="muted">Loading...</div>
+      </div>
+
+      <h2 class="page-title" style="margin-top:24px;">History</h2>
+      <div id="historyAlerts">
+        <div class="muted">Loading...</div>
+      </div>
+
+    </div>
+
+    <nav class="tab-bar">
+      <a href="index.html" class="tab-item">
+        <span class="tab-icon">🏠</span>
+        <span>Home</span>
+      </a>
+      <a href="alerts.html" class="tab-item active">
+        <span class="tab-icon">🔔</span>
+        <span>Alerts</span>
+      </a>
+      <a href="territory.html" class="tab-item">
+        <span class="tab-icon">🗺️</span>
+        <span>Territory</span>
+      </a>
+      <a href="wellness.html" class="tab-item">
+        <span class="tab-icon">💚</span>
+        <span>Wellness</span>
+      </a>
+      <a href="profile.html" class="tab-item">
+        <span class="tab-icon">👤</span>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/alerts.js"></script>
+
+</body>
+</html>

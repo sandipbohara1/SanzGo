@@ -1,0 +1,21 @@
+/*
+  login.css
+  Page-specific styles for index.html (Login screen) only.
+  Shared base styles (variables, fonts, app-shell) live in style.css.
+*/
+
+.login-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+  gap: 8px;
+}
+
+.login-logo {
+  font-size: 64px;
+  margin-bottom: 4px;
+}
