@@ -10,7 +10,7 @@ SanzGo is a full-stack wearable health and wellness platform built around a Rasp
 
 The platform consists of three components:
 - A **FastAPI backend** that processes sensor data, manages territory, and sends health alerts
-- A **web-based frontend** (mobile-first) for real-time health monitoring and territory management
+- A **.NET MAUI mobile app** (iOS & Android) for real-time health monitoring and territory management
 - A **Raspberry Pi Pico 2 W** with three health sensors sending live physiological data
 
 ---
@@ -40,7 +40,7 @@ The platform consists of three components:
 | Layer | Technology |
 |---|---|
 | Backend | FastAPI (Python), asyncpg, PostgreSQL + PostGIS |
-| Frontend | Plain HTML/CSS/JavaScript, jQuery, Mapbox GL JS |
+| Mobile | .NET MAUI (C#) — MVVM architecture |
 | Database | PostgreSQL 16 with PostGIS 3.4 — Docker |
 | Hardware | Raspberry Pi Pico 2 W |
 | Sensors | MAX30102 (Heart Rate/SpO2), ENS160 (AQI/eCO2/TVOC), AHT21 (Temp/Humidity) |
@@ -322,9 +322,9 @@ uvicorn app.main:app --reload
 
 Server runs at `http://127.0.0.1:8000`
 
-### 7. Open the web app
+### 7. Open the mobile app
 
-Open the `web/` folder in VS Code and use **Live Server** to open `index.html`.
+Open `mobile/SanzGo/SanzGo.sln` in Visual Studio 2022 and run on Android emulator or physical device.
 
 ---
 
@@ -345,15 +345,13 @@ SanzGo/
 │       ├── territory.py     — Territory and run endpoints
 │       ├── devices.py       — Device pairing endpoints
 │       └── profile.py       — User profile endpoints
-├── web/
-│   ├── index.html           — Dashboard (default screen)
-│   ├── alerts.html          — Health alerts
-│   ├── wellness.html        — Wellness + health support
-│   ├── territory.html       — Mapbox territory map
-│   ├── profile.html         — User profile
-│   ├── login.html           — Google OAuth login
-│   ├── css/                 — Page-specific stylesheets
-│   └── js/                  — Page-specific JavaScript
+├── mobile/
+│   └── SanzGo/
+│       ├── Views/               — XAML pages (Login, Dashboard, Alerts, Territory, Wellness, Profile)
+│       ├── ViewModels/          — MVVM business logic
+│       ├── Models/              — Data classes matching API responses
+│       ├── Services/            — ApiService (all HTTP calls to backend)
+│       └── Helpers/             — SecureStorage JWT helper
 ├── assets/                  — Screenshots and hardware photos
 ├── docker-compose.yml       — PostgreSQL + PostGIS container
 ├── Dockerfile               — FastAPI container
@@ -365,7 +363,7 @@ SanzGo/
 
 ## Built By
 
-Sandip Bohara
+Sandip Bohara — NAIT Computer Engineering Technology
 
 ---
 
