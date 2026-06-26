@@ -365,7 +365,7 @@ SanzGo/
 
 ## Built By
 
-Sandip Bohara — NAIT Computer Engineering Technology
+Sandip Bohara
 
 ---
 
